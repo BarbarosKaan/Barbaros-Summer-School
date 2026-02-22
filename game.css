@@ -212,11 +212,13 @@ button{
     display:flex;
     align-items: center;
     justify-content: center;
+    container-type: inline-size;
 }
 
 #header-text{
+    text-align:center;
     color:aliceblue;
-    font-size:3em;
+    font-size: 10cqw;
     -webkit-text-stroke: 1px black;
 }
 
@@ -224,6 +226,11 @@ button{
 
 #background:not(.quiz) #quiz-cont{
     display:none
+}
+
+#quiz-question{
+    text-align:center;
+    color:whitesmoke;
 }
 
 #quiz-answers{
@@ -286,8 +293,20 @@ button{
     margin-bottom:1em;
     border-radius:1em;
     border:0px;
-    background:white;
+    background:rgb(255, 255, 255);
     transition: background 0.3s ease;   
+}
+
+#grammar-input{
+    transition:background 0.3s ease
+}
+
+#grammar-input.correct{
+    background:greenyellow;
+}
+
+#grammar-input.incorrect{
+    background:red;
 }
 
 .submit-btn:hover{
@@ -333,6 +352,11 @@ button{
 
 #background:not(.listening) #listening-cont{
     display:none
+}
+
+#listening-question{
+    text-align:center;
+    color:whitesmoke;
 }
 
 #listening-answers{

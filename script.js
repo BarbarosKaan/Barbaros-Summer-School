@@ -9,8 +9,17 @@ const personName = document.querySelector("#person-name")
 const speakText = document.querySelector("#text")
 const skipBtn = document.querySelector("#skip-btn")
 
-const quizCont = document.querySelector("#quiz-cont")
+const minigameHeader = document.querySelector("#header-text")
+
 const quizQuestion = document.querySelector("#quiz-question")
+
+const listeningAudio = document.querySelector("#listening-audio")
+const listeningQuestion = document.querySelector("#listening-question")
+
+const grammarText1 = document.querySelector("#grammar-text1")
+const grammarText2 = document.querySelector("#grammar-text2")
+const grammarInput = document.querySelector("#grammar-input")
+const grammarSubmit = document.querySelector("#grammar-submit")
 
 const heart1 = document.querySelector("#heart1")
 const heart2 = document.querySelector("#heart2")
@@ -99,6 +108,114 @@ class Quiz {
     }
 }
 
+class Listening {
+    constructor(sound, question, answers, correctIndex, correctFunc, incorrectFunc) {
+        this.sound = sound
+        this.question = question
+        this.answers = answers
+        this.correctIndex = correctIndex
+        this.onCorrect = correctFunc
+        this.onIncorrect = incorrectFunc
+    }
+
+    render(){
+        background.className = ""
+        background.classList.add("minigame","listening")
+        listeningQuestion.textContent = this.question
+        listeningAudio.src = this.sound
+        listeningAudio.load()
+        listeningAudio.play()
+        this.clickable = true
+
+        const buttons = []
+
+        this.answers.forEach((answer, index) => {
+            const btn = document.getElementById("listening-answer" + (index+1))
+            if (!btn) return
+
+            buttons.push(btn)
+
+            btn.classList.remove("correct","incorrect")
+            btn.textContent = answer
+
+            btn.onclick = () => {
+                if (!this.clickable) return
+                this.clickable = false
+                const isCorrect = index === this.correctIndex
+
+                if (isCorrect) {
+                    btn.classList.add("correct")
+                } else {
+                    loseHeart()
+                    btn.classList.add("incorrect")
+                    buttons[this.correctIndex].classList.add("correct")
+                }
+                
+                listeningAudio.pause()
+                setTimeout(() => {
+                    listeningAudio.pause()
+                    buttons.forEach(b => {
+                        b.classList.remove("correct","incorrect")
+                        b.onclick = null
+                    })
+                    if (stopAll){return}
+                    if (isCorrect){
+                        this.onCorrect()
+                    } else {
+                        this.onIncorrect()
+                    }
+                }, 1000)
+            }
+        })
+    }
+}
+
+class Grammar {
+    constructor(text1,text2,answer,onCorrect,onIncorrect){
+        this.text1 = text1
+        this.text2 = text2
+        this.answer = answer.toLowerCase()
+        this.clickable = true
+        this.onCorrect = onCorrect
+        this.onIncorrect = onIncorrect
+    }
+
+    render(){
+        background.className = ""
+        background.classList.add("minigame","grammar")
+        grammarText1.textContent = this.text1
+        grammarText2.textContent = this.text2
+        grammarInput.readOnly = false
+        
+        grammarSubmit.onclick = ()=>{
+            if (!this.clickable) return
+            this.clickable = false
+            grammarInput.readOnly = true
+            const isCorrect = grammarInput.value.toLowerCase() === this.answer
+
+            if (isCorrect) {
+                grammarInput.classList.add("correct")
+            } else {
+                loseHeart()
+                grammarInput.classList.add("incorrect")
+                grammarInput.value = this.answer
+            }
+
+            setTimeout(()=>{
+                grammarInput.className = ""
+                grammarInput.value = ""
+                grammarInput.readOnly = false
+                if (stopAll){return}
+                if (isCorrect){
+                    this.onCorrect()
+                } else {
+                    this.onIncorrect()
+                }
+            },1000)
+        }
+    }
+}
+
 const Characters = {
     "Barbaros": new Character("Barbaros","images/barbaros-temp.png","audios/voice_sans.wav"),
 }
@@ -108,11 +225,38 @@ const Images = {
     "Cafe": "/images/cafe.jpg",
 }
 
+const Audios = {
+    "Monitoring": "audios/Monitoring.mp3"
+}
+
 const Minigames = {
-    //TODO: **Doğru yada yanlış cevapla birden fazla yazı yazabilmeyi ekle
-    "Quiz1": new Quiz("What does a cow drink",
+    "Quiz1": new Quiz(
+        "What does a cow drink",
         ["Milk","Water","Lemonade","Juice"],
         1,
+        ()=>{
+            Characters["Barbaros"].speak("Good Job!")
+        },
+        ()=>{
+            Characters["Barbaros"].speak("Oopsie doopsie!")
+        },
+    ),
+    "Listening1": new Listening(
+        Audios["Monitoring"],
+        "Who is the singer of this banger",
+        ["Kasane Teto","Barbaros Kaan Lale","Kagamine Len","Hatsune Miku"],
+        3,
+        ()=>{
+            Characters["Barbaros"].speak("Good Job!")
+        },
+        ()=>{
+            Characters["Barbaros"].speak("Oopsie doopsie!")
+        },
+    ),
+    "Grammar1": new Grammar(
+        "My ",
+        " is Barbaros",
+        "name",
         ()=>{
             Characters["Barbaros"].speak("Good Job!")
         },
@@ -130,18 +274,6 @@ const Story = [
         text:"Hello World"
     },
     {
-        type:"dialog",
-        character:Characters["Barbaros"],
-        background: Images["Airport"],
-        text:"How are you"
-    },
-    {
-        type:"dialog",
-        character:Characters["Barbaros"],
-        background: Images["Airport"],
-        text:"Fine thanks and you"
-    },
-    {
         type:"transition",
         newBackground: Images["Cafe"],
         text:"Barbaros goes to a cafe",
@@ -151,12 +283,13 @@ const Story = [
         type:"dialog",
         character:Characters["Barbaros"],
         background: Images["Cafe"],
-        text:"Lorem, ipsum dolor sit amet consectetur adipisicing elit. Amet ratione, libero voluptas quaerat laudantium cupiditate rem inventore unde molestiae quasi ad est facilis non laborum doloribus modi tempora commodi sapiente?"
+        text:"Lorem, ipsum dolor sit amet sapiente?"
     },
     {
         type:"minigame",
+        header:"Listen and pick the correct answer",
         background: Images["Cafe"],
-        minigame:Minigames["Quiz1"]
+        minigame:Minigames["Listening1"]
     },
     {
         type:"dialog",
@@ -166,11 +299,13 @@ const Story = [
     },
     {
         type:"minigame",
+        header:"Complete the sentence",
         background: Images["Cafe"],
-        minigame:Minigames["Quiz1"]
+        minigame:Minigames["Grammar1"]
     },
     {
         type:"minigame",
+        header:"Pick the correct answer",
         background: Images["Cafe"],
         minigame:Minigames["Quiz1"]
     },
@@ -211,8 +346,7 @@ function loseHeart(){
                     currentInterval=null
                 }
                 storyIndex= -1
-                background.className=""
-                background.classList.add("start")
+                background.className="start"
                 black.classList.remove("active")
                 stopAll = false
             },4000)
@@ -230,6 +364,7 @@ function continueStory(){
         pageData.character.speak(pageData.text)
     } else if(pageData.type ==="minigame"){
         background.style.backgroundImage = `url("${pageData.background}")`
+        minigameHeader.textContent = pageData.header
         pageData.minigame.render()
     } else if(pageData.type ==="transition"){
         black.classList.add("active")
@@ -245,6 +380,10 @@ function continueStory(){
     }
 }
 
+function onStart(){
+    background.className = "start"
+}
+
 startBtn.addEventListener("click",continueStory)
 
 skipBtn.addEventListener("click", () => {
@@ -254,3 +393,5 @@ skipBtn.addEventListener("click", () => {
     }
     continueStory()
 })
+
+onStart()
