@@ -12,6 +12,12 @@ const skipBtn = document.querySelector("#skip-btn")
 const quizCont = document.querySelector("#quiz-cont")
 const quizQuestion = document.querySelector("#quiz-question")
 
+const heart1 = document.querySelector("#heart1")
+const heart2 = document.querySelector("#heart2")
+const heart3 = document.querySelector("#heart3")
+
+let stopAll = false
+let hearts = 3
 let currentInterval = null;
 let storyIndex = -1
 
@@ -28,7 +34,6 @@ class Character{
         personImg.src = this.image
         personName.textContent = this.name
 
-        console.log(this.name)
         if (this.name === "Barbaros"){
             background.classList.add("main")
         }
@@ -36,36 +41,59 @@ class Character{
     }
 }
 
+//TODO: *Diğer minigame'leri de ekle
+
 class Quiz {
-    constructor(question, answers, correctIndex) {
+    constructor(question, answers, correctIndex, correctFunc, incorrectFunc) {
         this.question = question
         this.answers = answers
         this.correctIndex = correctIndex
-    }
-
-    checkAnswer(index) {
-        return index === this.correctIndex
+        this.onCorrect = correctFunc
+        this.onIncorrect = incorrectFunc
     }
 
     render(){
         background.className = ""
         background.classList.add("minigame","quiz")
         quizQuestion.textContent = this.question
+        this.clickable = true
+
+        const buttons = []
 
         this.answers.forEach((answer, index) => {
             const btn = document.getElementById("quiz-answer" + (index+1))
+            if (!btn) return
+
+            buttons.push(btn)
+
+            btn.classList.remove("correct","incorrect")
             btn.textContent = answer
 
             btn.onclick = () => {
-                const correct = this.checkAnswer(index)
+                if (!this.clickable) return
+                this.clickable = false
+                const isCorrect = index === this.correctIndex
 
-                if (correct) {
-                    console.log("Doğru")
-                    continueStory()
+                if (isCorrect) {
+                    btn.classList.add("correct")
                 } else {
-                    console.log("Yanlış")
-                    continueStory()
+                    loseHeart()
+                    btn.classList.add("incorrect")
+                    buttons[this.correctIndex].classList.add("correct")
                 }
+
+                setTimeout(() => {
+                    buttons.forEach(b => {
+                        b.classList.remove("correct","incorrect")
+                        b.onclick = null
+                    })
+                    if (stopAll){return}
+                    if (isCorrect){
+                        this.onCorrect()
+                    } else {
+                        this.onIncorrect()
+                    }
+                }, 1000)
             }
         })
     }
@@ -81,7 +109,17 @@ const Images = {
 }
 
 const Minigames = {
-    "Quiz1": new Quiz("What does a cow drink",["Milk","Water","Lemonade","Juice"],1)
+    //TODO: **Doğru yada yanlış cevapla birden fazla yazı yazabilmeyi ekle
+    "Quiz1": new Quiz("What does a cow drink",
+        ["Milk","Water","Lemonade","Juice"],
+        1,
+        ()=>{
+            Characters["Barbaros"].speak("Good Job!")
+        },
+        ()=>{
+            Characters["Barbaros"].speak("Oopsie doopsie!")
+        },
+    )
 }
 
 const Story = [
@@ -106,7 +144,8 @@ const Story = [
     {
         type:"transition",
         newBackground: Images["Cafe"],
-        text:"Barbaros goes to a cafe"
+        text:"Barbaros goes to a cafe",
+        time:5000
     },
     {
         type:"dialog",
@@ -123,7 +162,17 @@ const Story = [
         type:"dialog",
         character:Characters["Barbaros"],
         background: Images["Cafe"],
-        text:"Good Job!"
+        text:"Pomney!"
+    },
+    {
+        type:"minigame",
+        background: Images["Cafe"],
+        minigame:Minigames["Quiz1"]
+    },
+    {
+        type:"minigame",
+        background: Images["Cafe"],
+        minigame:Minigames["Quiz1"]
     },
 ]
 
@@ -144,26 +193,54 @@ function typeWriter(element, text, sound , speed) {
         }, speed)
 }
 
+function loseHeart(){
+    hearts--
+    if (hearts===2){
+        heart3.classList.add("lost")
+    } else if (hearts===1){
+        heart2.classList.add("lost")
+    } else if(hearts===0){
+        heart1.classList.add("lost")
+        stopAll = true
+        setTimeout(()=>{
+            black.classList.add("active")
+            typeWriter(blackText,"You Lost All Your Hearts.","audios/voice_sans.wav",50)
+            setTimeout(()=>{
+                if (currentInterval){
+                    clearInterval(currentInterval)
+                    currentInterval=null
+                }
+                storyIndex= -1
+                background.className=""
+                background.classList.add("start")
+                black.classList.remove("active")
+                stopAll = false
+            },4000)
+        },1000)
+    }
+}
+
 function continueStory(){
+    if (stopAll) {return}
     storyIndex++
     if (storyIndex >= Story.length){return}
-    const currentPage = Story[storyIndex]
-    if (currentPage.type === "dialog"){
-        background.style.backgroundImage = `url("${currentPage.background}")`
-        currentPage.character.speak(currentPage.text)
-    } else if(currentPage.type ==="minigame"){
-        background.style.backgroundImage = `url("${currentPage.background}")`
-        currentPage.minigame.render()
-    } else if(currentPage.type ==="transition"){
+    const pageData = Story[storyIndex]
+    if (pageData.type === "dialog"){
+        background.style.backgroundImage = `url("${pageData.background}")`
+        pageData.character.speak(pageData.text)
+    } else if(pageData.type ==="minigame"){
+        background.style.backgroundImage = `url("${pageData.background}")`
+        pageData.minigame.render()
+    } else if(pageData.type ==="transition"){
         black.classList.add("active")
         blackText.textContent = ""
         setTimeout(()=>{
-            background.style.backgroundImage = `url("${currentPage.newBackground}")`
-            typeWriter(blackText,currentPage.text,"audios/voice_sans.wav",50)
+            background.style.backgroundImage = `url("${pageData.newBackground}")`
+            typeWriter(blackText,pageData.text,"audios/voice_sans.wav",50)
             setTimeout(()=>{
                 black.classList.remove("active")
                 continueStory()
-            },5000)
+            },pageData.time)
         },2000)
     }
 }

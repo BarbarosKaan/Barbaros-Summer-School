@@ -21,14 +21,14 @@ button{
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     grid-template-areas:
-    "top1 mg-heading health"
+    "top1 mg-heading hearts"
     "person minigame mid3"
     "person speech speech";
 }
 
 #background:not(.main){
     grid-template-areas:
-    "top1 mg-heading health"
+    "top1 mg-heading hearts"
     "mid1 minigame person"
     "speech speech person";
 }
@@ -85,6 +85,35 @@ button{
 }
 
 /* ----------------- Start ----------------- */
+
+/* ----------------- Hearts ----------------- */
+
+#background.start #hearts{
+    display:none;
+}
+
+#background:not(.start) #hearts{
+    position:relative;
+    grid-area:hearts;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top:1em;
+    margin-right:1em;
+    height:30%;
+    width:70%;
+    transform:translateX(+25%);
+}
+
+.heart{
+    width:30%;
+}
+
+.heart.lost{
+    display:none;
+}
+
+/* ----------------- Hearts ----------------- */
 
 /* ----------------- Speech ----------------- */
 
