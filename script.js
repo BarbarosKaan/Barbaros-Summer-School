@@ -21,6 +21,10 @@ const grammarText2 = document.querySelector("#grammar-text2")
 const grammarInput = document.querySelector("#grammar-input")
 const grammarSubmit = document.querySelector("#grammar-submit")
 
+const sentenceWords = document.querySelector("#sent-words")
+const sentenceAnswer = document.querySelector("#sent-answer")
+const sentenceSubmit = document.querySelector("#sent-submit")
+
 const heart1 = document.querySelector("#heart1")
 const heart2 = document.querySelector("#heart2")
 const heart3 = document.querySelector("#heart3")
@@ -50,8 +54,6 @@ class Character{
     }
 }
 
-//TODO: *Diğer minigame'leri de ekle
-
 class Quiz {
     constructor(question, answers, correctIndex, correctFunc, incorrectFunc) {
         this.question = question
@@ -62,8 +64,7 @@ class Quiz {
     }
 
     render(){
-        background.className = ""
-        background.classList.add("minigame","quiz")
+        background.className = "minigame quiz"
         quizQuestion.textContent = this.question
         this.clickable = true
 
@@ -119,8 +120,7 @@ class Listening {
     }
 
     render(){
-        background.className = ""
-        background.classList.add("minigame","listening")
+        background.className = "minigame listening"
         listeningQuestion.textContent = this.question
         listeningAudio.src = this.sound
         listeningAudio.load()
@@ -181,11 +181,11 @@ class Grammar {
     }
 
     render(){
-        background.className = ""
-        background.classList.add("minigame","grammar")
+        background.className = "minigame grammar"
         grammarText1.textContent = this.text1
         grammarText2.textContent = this.text2
         grammarInput.readOnly = false
+        this.clickable = true
         
         grammarSubmit.onclick = ()=>{
             if (!this.clickable) return
@@ -205,6 +205,94 @@ class Grammar {
                 grammarInput.className = ""
                 grammarInput.value = ""
                 grammarInput.readOnly = false
+                if (stopAll){return}
+                if (isCorrect){
+                    this.onCorrect()
+                } else {
+                    this.onIncorrect()
+                }
+            },1000)
+        }
+    }
+}
+
+class Sentence {
+    constructor(words,onCorrect,onIncorrect){
+        this.words = [...words]
+        this.correct = [...words]
+        this.onCorrect = onCorrect
+        this.onIncorrect = onIncorrect
+        this.clickable = true
+        this.playerAnswer=[]
+    }
+
+    render(){
+        this.playerAnswer = []
+        this.clickable = true
+        background.className = "minigame sentence"
+        sentenceWords.innerHTML = ""
+        sentenceAnswer.innerHTML = ""
+        sentenceAnswer.className = ""
+
+        for (let i = this.words.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+
+            [this.words[i], this.words[j]] = 
+            [this.words[j], this.words[i]];
+        }
+
+        this.words.forEach((word,index) =>{
+            const newWord = document.createElement("span")
+            newWord.textContent = word
+            const answerWord = document.createElement("span")
+            answerWord.textContent = word
+
+            newWord.onclick = ()=>{
+                if (!this.clickable) return
+                if (newWord.classList.contains("picked")){
+                    newWord.classList.remove("picked")
+                    const index = this.playerAnswer.indexOf(word)
+                    if (index !== -1) {
+                        this.playerAnswer.splice(index, 1)
+                    }
+                    sentenceAnswer.removeChild(answerWord)
+                } else {
+                    newWord.classList.add("picked")
+                    this.playerAnswer.push(word)
+                    sentenceAnswer.appendChild(answerWord)
+                }
+            }
+
+            answerWord.onclick = ()=>{
+                if (!this.clickable) return
+                newWord.classList.remove("picked")
+                sentenceAnswer.removeChild(answerWord)
+                const index = this.playerAnswer.indexOf(word)
+                if (index !== -1) {
+                    this.playerAnswer.splice(index, 1)
+                }
+            }
+            
+            sentenceWords.appendChild(newWord)
+        })
+
+        sentenceSubmit.onclick = ()=>{
+            if (!this.clickable) return
+            this.clickable = false
+            let isCorrect = true
+            for (let i = 0; i < this.correct.length; i++){
+                if (this.playerAnswer[i] !== this.correct[i]){
+                    isCorrect = false
+                    break
+                }
+            }
+            if (isCorrect) {
+                sentenceAnswer.classList.add("correct")
+            } else {
+                loseHeart()
+                sentenceAnswer.classList.add("incorrect")
+            }
+            setTimeout(()=>{
                 if (stopAll){return}
                 if (isCorrect){
                     this.onCorrect()
@@ -263,8 +351,19 @@ const Minigames = {
         ()=>{
             Characters["Barbaros"].speak("Oopsie doopsie!")
         },
+    ),
+    "Sentence1": new Sentence(
+        ["Hello","My","Dear","Friends"],
+        ()=>{
+            Characters["Barbaros"].speak("Good Job!")
+        },
+        ()=>{
+            Characters["Barbaros"].speak("Oopsie doopsie!")
+        },
     )
 }
+
+//TODO: İlk chapterı hikaye olarak ekle ve oynanabilir birşey yap
 
 const Story = [
     {
@@ -280,10 +379,10 @@ const Story = [
         time:5000
     },
     {
-        type:"dialog",
-        character:Characters["Barbaros"],
+        type:"minigame",
+        header:"Put the words in the correct order",
         background: Images["Cafe"],
-        text:"Lorem, ipsum dolor sit amet sapiente?"
+        minigame:Minigames["Sentence1"]
     },
     {
         type:"minigame",
@@ -381,7 +480,11 @@ function continueStory(){
 }
 
 function onStart(){
-    background.className = "start"
+    background.className = "start",
+    hearts = 3
+    heart1.className="heart"
+    heart2.className="heart"
+    heart3.className="heart"
 }
 
 startBtn.addEventListener("click",continueStory)

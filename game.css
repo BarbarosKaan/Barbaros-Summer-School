@@ -97,7 +97,8 @@ button{
     grid-area:hearts;
     display:flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    gap:1em;
     margin-top:1em;
     margin-right:1em;
     height:30%;
@@ -200,7 +201,7 @@ button{
     display:flex;
     flex-direction:column;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
 }
 
 #background.minigame #minigame-header{
@@ -313,40 +314,81 @@ button{
     background:rgb(186, 186, 186);
 }
 
-/* ----------------- Find The Error ----------------- */
+/* ----------------- Sentence ----------------- */
 
-#background:not(.find) #find-cont{
+#background:not(.sentence) #sentence-cont{
     display:none
 }
 
-#find-flex{
-    background: white;
+#sent-words{
+    background:white;
     border-radius:1em;
-    display:flex;
-    flex-direction:column;
-    align-items: center;
-    justify-content:flex-start;
-    gap:10px;
-    margin-bottom: 1em;
-    margin-top:1em; 
     width:80%;
-    padding:10px
-}
-
-.find-ans-div{
-    border-radius:1em;
     display:flex;
     align-items: center;
     justify-content: center;
-    width:70%;
-    background:gray;
+    flex-wrap:wrap;
+    padding:0.5em;
+    margin-bottom:1em;
 }
 
-.find-check{
-    cursor:pointer;
+#sent-words *{
+    padding:0.5em;
+    border-radius:1em;
+    border: 1px solid black;
+    background:white;
+    transition: all 0.3s ease;
 }
 
-/* ----------------- Find The Error ----------------- */
+#sent-words *.picked{
+    background:#8ebff4;
+    border: 1px solid rgb(171, 210, 238);
+}
+
+#sent-words *.picked:hover{
+    background:#90cdff;
+}
+
+#sent-words *:not(.picked):hover{
+    background:grey;
+}
+
+#sent-answer{
+    background:white;
+    border-radius:1em;
+    width:80%;
+    height: auto;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    gap:0.5em;
+    padding:1em;
+    flex-wrap: wrap;
+    margin-bottom:1em;
+    transition:all 0.3s ease;
+}
+
+#sent-answer.incorrect{
+    background:red;
+}
+
+#sent-answer.correct{
+    background:green;
+}
+
+#sent-answer *{
+    display: inline-block;
+    padding:0.01em 1em;
+    background:rgb(180, 178, 178);
+    border-radius: 1em;
+    transition: all 0.3s ease;
+}
+
+#sent-answer *:hover{
+    background:red;
+}
+
+/* ----------------- Sentence ----------------- */
 
 /* ----------------- Listening ----------------- */
 
