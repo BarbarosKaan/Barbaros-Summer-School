@@ -136,12 +136,14 @@ button{
 }
 
 #person-name{
+    position:relative;
     grid-area: 1 / 1;
     justify-self: center;
-    align-self: end;
+    align-self: center;
+    transform: translateY(+100%);
     color:white;
-    font-size:2em;
-    z-index:1;
+    font-size:5vw;
+    z-index:10;
     -webkit-text-stroke: 1px black;
 }
 
@@ -171,10 +173,14 @@ button{
     position:absolute;
     top:-10%;
     border-radius:1em;
-    width: max(5%,15%);
+    width: max(5%,10%);
     height: max(5%,15%);
     background: rgb(255, 255, 255);
     transition: background 0.3s ease;
+}
+
+#background.speech #skip-img{
+    height:1.7vw;
 }
 
 #skip-btn:hover{
@@ -338,6 +344,7 @@ button{
     border: 1px solid black;
     background:white;
     transition: all 0.3s ease;
+    cursor:pointer;
 }
 
 #sent-words *.picked{
@@ -373,7 +380,7 @@ button{
 }
 
 #sent-answer.correct{
-    background:green;
+    background:rgb(55, 251, 55);
 }
 
 #sent-answer *{
@@ -382,6 +389,7 @@ button{
     background:rgb(180, 178, 178);
     border-radius: 1em;
     transition: all 0.3s ease;
+    cursor:pointer;
 }
 
 #sent-answer *:hover{
