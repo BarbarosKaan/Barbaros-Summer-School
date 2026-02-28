@@ -1,6 +1,6 @@
 body{
     margin:0;
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:cursive;
     overflow:hidden;
 }
 
@@ -70,14 +70,27 @@ button{
     display:none;
 }
 
+#background:not(.start) #start-title{
+    display:none;
+}
+
 #background.start #start-btn{
+    font-family:inherit;
     font-size:3em;
     height:50%;
     grid-area: minigame;
     background-color:greenyellow;
-    transform:translateY(+50%);
+    transform:translateY(+150%);
     transition:all 0.3s ease;
     border-radius:1em;
+}
+
+#background.start #start-title{
+    grid-area: mg-heading;
+    text-align:center;
+    font-size:5em;
+    -webkit-text-stroke: black 1px;
+    color:white;
 }
 
 #background.start #start-btn:hover{
@@ -104,6 +117,7 @@ button{
     height:30%;
     width:70%;
     transform:translateX(+25%);
+    transition: all 0.3s ease;
 }
 
 .heart{
@@ -159,6 +173,7 @@ button{
 }
 
 #background.speech #text{
+    font-size:1.2em;
     position:absolute;
     top:50%;
     left:50%;
