@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chapter 1</title>
+    <title>Game</title>
     <link rel="stylesheet" href="game.css">
     <script type="module" src="game.js" defer></script>
 </head>
@@ -11,11 +11,11 @@
     <div id="black" class="">
         <h2 id="black-text">Transition...</h2>
     </div>
-    <div id="background" class="start">
+    <div id="background" class="end">
         <div id="hearts">
-            <img src="images/elements/heart.png" alt="Heart" id="heart1" class="heart"></img>
-            <img src="images/elements/heart.png" alt="Heart" id="heart2" class="heart"></img>
-            <img src="images/elements/heart.png" alt="Heart" id="heart3" class="heart"></img>
+            <img src="../images/elements/heart.png" alt="Heart" id="heart1" class="heart"></img>
+            <img src="../images/elements/heart.png" alt="Heart" id="heart2" class="heart"></img>
+            <img src="../images/elements/heart.png" alt="Heart" id="heart3" class="heart"></img>
         </div>
         <h1 id="start-title">The Title</h1>
         <button id="start-btn">Start</button>
@@ -34,7 +34,7 @@
             <button class="submit-btn" id="sent-submit">Submit</button>
         </div>
         <div class="minigame-cont" id="listening-cont">
-            <audio id="listening-audio" src="audios/listenings/temp-music.mp3" controls></audio>
+            <audio id="listening-audio" src="../audios/listenings/temp-music.mp3" controls></audio>
             <h2 id="listening-question">Question</h2>
             <div id="listening-answers">
                 <button class="listening-answer-btn" id="listening-answer1">A</button>
@@ -53,12 +53,18 @@
             </div>
         </div>
         <div id="person">
-            <img id="person-img" src="resim-yolu.png" alt="character">
+            <img id="person-img" src="" alt="character">
             <h2 id="person-name">İSİM</h2>
         </div>
         <div id="speech-bubble">
-            <button id="skip-btn"><img id="skip-img" src="images/elements/skip.png" alt="Skip"></button>
+            <button id="skip-btn"><img id="skip-img" src="../images/elements/skip.png" alt="Skip"></button>
             <p id="text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Amet ratione, libero voluptas quaerat laudantium cupiditate rem inventore unde molestiae quasi ad est facilis non laborum doloribus modi tempora commodi sapiente?</p>
+        </div>
+        <div id="end-div">
+            <h2 id="end-state">Good Job!</h5>
+            <h3 id="end-yap">The chapter has ended!. You unlocked the next chapter.</h3>
+            <button id="replay-btn">Replay</button>
+            <button id="return-btn">Return</button>
         </div>
     </div>
 </body>

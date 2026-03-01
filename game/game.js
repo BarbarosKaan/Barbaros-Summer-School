@@ -12,36 +12,69 @@ const skipBtn = document.querySelector("#skip-btn")
 
 const minigameHeader = document.querySelector("#header-text")
 
-const heart1 = document.querySelector("#heart1")
-const heart2 = document.querySelector("#heart2")
-const heart3 = document.querySelector("#heart3")
+const endState = document.querySelector("#end-state")
+const endYap = document.querySelector("#end-yap")
+const replayBtn = document.querySelector("#replay-btn")
+const returnBtn = document.querySelector("#return-btn")
 
 let stopAll = false
 let storyIndex = -1
 let inputLocked = false
 
-//TODO: Chapter seçme ekranı
-//TODO: Düzgün başlangıç ve bitiş ekranları
+const StartDatas = [Ch1StartData]
+const Stories = [Ch1Story]
+const currentCh = Number(localStorage.getItem("currentChapter")) || 1
 
-const Story = [...Ch1Story]
+const Story = Stories[currentCh-1]
+const StartData = StartDatas[currentCh-1]
 
 function onDeath(){
     setTimeout(()=>{
         black.classList.add("active")
-        typeWriter(blackText,"You Lost All Your Hearts.","audios/voices/voice_sans.wav",50)
+        typeWriter(blackText,"You Lost All Your Hearts.","../audios/voices/voice_sans.wav",50)
         setTimeout(()=>{
             stopTypeWriter()
-            resetToStart()
+            storyEnd(false)
             black.classList.remove("active")
         },4000)
     },1000)
+}
+
+function storyEnd(won){
+    background.className = "end"
+    background.style.backgroundImage = `url(${StartData.Image})`
+    startTitle.textContent = StartData.Title
+    if (won) {
+        endState.textContent = "Good Job!"
+        endYap.textContent = "The chapter has ended!. You unlocked the next chapter."
+        localStorage.setItem(`ch${currentCh + 1}Unlocked`, "true")
+    } else {
+        endState.textContent = "Better Luck Next Time!"
+        endYap.textContent = "You lost all your hearts. Click the replay button to try again"
+    }
+
+    replayBtn.textContent = "Replay"
+    replayBtn.addEventListener("click",()=>{
+        resetToStart()
+        continueStory()
+    },{ once: true })
+    returnBtn.textContent = "Return"
+    returnBtn.addEventListener("click",()=>{
+        window.location.href = "../main/index.html"
+    },{ once: true })
 }
 
 function continueStory(){
     if (stopAll) {return}
     storyIndex++
     if (storyIndex >= Story.length){
-        resetToStart()
+        black.classList.add("active")
+        typeWriter(blackText,"To be continued...","../audios/voices/voice_sans.wav",50)
+        setTimeout(()=>{
+            stopTypeWriter()
+            storyEnd(true)
+            black.classList.remove("active")
+        },4000)
         return
     }
     const pageData = Story[storyIndex]
@@ -57,7 +90,7 @@ function continueStory(){
         blackText.textContent = ""
         setTimeout(()=>{
             background.style.backgroundImage = `url("${pageData.newBackground}")`
-            typeWriter(blackText,pageData.text,"audios/voices/voice_sans.wav",50)
+            typeWriter(blackText,pageData.text,"../audios/voices/voice_sans.wav",50)
             setTimeout(()=>{
                 black.classList.remove("active")
                 continueStory()
@@ -68,9 +101,8 @@ function continueStory(){
 
 function resetToStart(){
     storyIndex= -1
-    //Şu anda otomatik chapter 1
-    background.style.backgroundImage = `url(${Ch1StartData.Image})`
-    startTitle.textContent = Ch1StartData.Title
+    background.style.backgroundImage = `url(${StartData.Image})`
+    startTitle.textContent = StartData.Title
     background.className = "start",
     restoreHearts()
 }

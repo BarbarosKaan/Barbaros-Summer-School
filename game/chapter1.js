@@ -3,37 +3,37 @@ import {Quiz, Listening, Grammar, Sentence} from "./minigames.js"
 
 const Characters = {
     "Barbaros": new Character("Barbaros",
-        "images/characters/barbaros-doodle.png",
-        "audios/voices/barbaros_voice.m4a"
+        "../images/characters/barbaros-doodle.png",
+        "../audios/voices/barbaros_voice.m4a"
     ),
     "Anne" : new Character("Anne",
-        "images/characters/annem-doodle.png",
-        "audios/voices/anne_voice.m4a"
+        "../images/characters/annem-doodle.png",
+        "../audios/voices/anne_voice.m4a"
     ),
     "Taksici" : new Character("Taxi Driver",
-        "images/characters/taksici-doodle.png",
-        "audios/voices/taksici_voice.m4a"
+        "../images/characters/taksici-doodle.png",
+        "../audios/voices/taksici_voice.m4a"
     ),
     "AsyalıNpc" : new Character("???",
-        "images/characters/asyalı-doodle.png",
-        "audios/voices/asyali_voice.m4a"
+        "../images/characters/asyalı-doodle.png",
+        "../audios/voices/asyali_voice.m4a"
     )
 }
 
 const Images = {
-    "Airport1": "images/backgrounds/airport1.jpg",
-    "Airport1-Blur": "images/backgrounds/airport1-blur.jpg",
-    "Airport2": "images/backgrounds/airport2.jpg",
-    "Bedroom": "images/backgrounds/bedroom.jpg",
-    "Cafe": "images/backgrounds/cafe.jpg",
-    "Plane": "images/backgrounds/plane.jpg",
-    "Plane-Blur": "images/backgrounds/plane.jpg",
-    "Taxi": "images/backgrounds/taxi.jpg",
-    "Taxi-Blur": "images/backgrounds/taxi-blur.jpg"
+    "Airport1": "../images/backgrounds/airport1.jpg",
+    "Airport1-Blur": "../images/backgrounds/airport1-blur.jpg",
+    "Airport2": "../images/backgrounds/airport2.jpg",
+    "Bedroom": "../images/backgrounds/bedroom.jpg",
+    "Cafe": "../images/backgrounds/cafe.jpg",
+    "Plane": "../images/backgrounds/plane.jpg",
+    "Plane-Blur": "../images/backgrounds/plane.jpg",
+    "Taxi": "../images/backgrounds/taxi.jpg",
+    "Taxi-Blur": "../images/backgrounds/taxi-blur.jpg"
 }
 
 const Audios = {
-    "Plane-Announcement": "audios/listenings/plane_announcement.mp3"
+    "Plane-Announcement": "../audios/listenings/plane_announcement.mp3"
 }
 
 const Minigames = {
@@ -206,7 +206,7 @@ export const Ch1Story = [
     },
     {
         type:"minigame",
-        header:"Type the missing word and complete the sentence",
+        header:"Complete the sentence",
         background: Images["Plane-Blur"],
         minigame:Minigames["Plane1"]
     },
@@ -326,7 +326,7 @@ export const Ch1Story = [
     },
 ]
 
-const startImg = "images/backgrounds/chapter1Cover.jpg"
+const startImg = "../images/backgrounds/chapter1Cover.jpg"
 const startTitle = "The Departure"
 
 export const Ch1StartData = {
