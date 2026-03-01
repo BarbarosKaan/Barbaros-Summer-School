@@ -1,4 +1,5 @@
 import {Ch1Story, Ch1StartData} from "./chapter1.js"
+import {Ch2Story, Ch2StartData} from "./chapter2.js"
 import {typeWriter, speedTypeWriter, stopTypeWriter, restoreHearts, isTypeWriterRunning} from "./utils.js"
 
 const background = document.querySelector("#background")
@@ -21,8 +22,8 @@ let stopAll = false
 let storyIndex = -1
 let inputLocked = false
 
-const StartDatas = [Ch1StartData]
-const Stories = [Ch1Story]
+const StartDatas = [Ch1StartData,Ch2StartData]
+const Stories = [Ch1Story,Ch2Story]
 const currentCh = Number(localStorage.getItem("currentChapter")) || 1
 
 const Story = Stories[currentCh-1]
@@ -124,6 +125,7 @@ skipBtn.addEventListener("click", () => {
 })
 
 document.addEventListener("keydown", (event) => {
+    skipBtn.blur()
     if(inputLocked) return
 
     if(event.code !== "Space" && event.code !== "Enter") return

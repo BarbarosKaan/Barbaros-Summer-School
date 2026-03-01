@@ -15,6 +15,7 @@ body{
 }
 
 button{
+    font-family:inherit;
     cursor:pointer;
 }
 
@@ -110,5 +111,10 @@ button{
 
 #ch1{
     background-image: url("../images/backgrounds/chapter1Cover.jpg");
+    background-position: 70%;
+}
+
+#ch2{
+    background-image: url("../images/backgrounds/CityCentre.jpg");
     background-position: 70%;
 }
