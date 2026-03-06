@@ -61,7 +61,7 @@ function storyEnd(won){
     },{ once: true })
     returnBtn.textContent = "Return"
     returnBtn.addEventListener("click",()=>{
-        window.location.href = "../main/index.html"
+        window.location.href = "../index.html"
     },{ once: true })
 }
 

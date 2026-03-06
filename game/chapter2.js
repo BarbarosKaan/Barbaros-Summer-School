@@ -338,7 +338,7 @@ export const Ch2Story = [
         type:"dialog",
         character:Characters["Luca"],
         background: Images["River"],
-        text:"Me too. A good rest is the best preparation for the first day. Let's go, roommates!"
+        text:"Me too. A good rest is the best preparation for the first day. Let's go!"
     },
     {
         type:"transition",
@@ -362,7 +362,7 @@ export const Ch2Story = [
         type:"dialog",
         character:Characters["Luca"],
         background: Images["DormNight"],
-        text:"Goodnight roommates. See you at breakfast!"
+        text:"Goodnight roommies. See you at breakfast!"
     },
     {
         type:"dialog",

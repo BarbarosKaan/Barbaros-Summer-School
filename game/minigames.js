@@ -16,6 +16,9 @@ const sentenceWords = document.querySelector("#sent-words")
 const sentenceAnswer = document.querySelector("#sent-answer")
 const sentenceSubmit = document.querySelector("#sent-submit")
 
+const correctSound = new Audio("../audios/effects/correct.mp3")
+const incorrectSound = new Audio("../audios/effects/incorrect.mp3")
+
 let stopAll = false
 
 document.addEventListener("death",()=>{
@@ -57,8 +60,10 @@ export class Quiz {
 
                 if (isCorrect) {
                     btn.classList.add("correct")
+                    correctSound.play()
                 } else {
                     loseHeart()
+                    incorrectSound.play()
                     btn.classList.add("incorrect")
                     buttons[this.correctIndex].classList.add("correct")
                 }
@@ -115,8 +120,10 @@ export class Listening {
                 const isCorrect = index === this.correctIndex
 
                 if (isCorrect) {
+                    correctSound.play()
                     btn.classList.add("correct")
                 } else {
+                    incorrectSound.play()
                     loseHeart()
                     btn.classList.add("incorrect")
                     buttons[this.correctIndex].classList.add("correct")
@@ -165,9 +172,11 @@ export class Grammar {
             const isCorrect = grammarInput.value.toLowerCase() === this.answer
 
             if (isCorrect) {
+                correctSound.play()
                 grammarInput.classList.add("correct")
             } else {
                 loseHeart()
+                incorrectSound.play()
                 grammarInput.classList.add("incorrect")
                 grammarInput.value = this.answer
             }
@@ -258,9 +267,11 @@ export class Sentence {
                 }
             }
             if (isCorrect) {
+                correctSound.play()
                 sentenceAnswer.classList.add("correct")
             } else {
                 loseHeart()
+                incorrectSound.play()
                 sentenceAnswer.classList.add("incorrect")
             }
             setTimeout(()=>{

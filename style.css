@@ -19,6 +19,28 @@ button{
     cursor:pointer;
 }
 
+#frame {
+    position:absolute;
+    width:20vw;
+    height:20vh;
+    z-index:0;
+    top: 10%;
+    left:7%;
+    transform:rotate(10deg);
+    transition:all 1s ease;
+}
+
+#bgs {
+    position:absolute;
+    width:20vw;
+    height:20vh;
+    z-index:-1;
+    top: 10%;
+    left:7%;
+    transform:rotate(10deg);
+    transition:all 1s ease;
+}
+
 #info{
     scroll-snap-align: end;
     width:100vw;
@@ -36,11 +58,32 @@ button{
     text-align:center;
 }
 
-#info p{
+#desc{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#desc p{
     margin:1em;
     font-size:1.2em;
-    text-align:center;
-    width:80%
+    text-align:left;
+    width:50%
+}
+
+#char{
+    height:50vh;
+    transition: all 1s ease;
+}
+
+.fade-out{
+    opacity:0;
+    transform:scale(0.9);
+}
+
+.fade-in{
+    opacity:1;
+    transform:scale(1);
 }
 
 #info h1{
@@ -48,6 +91,7 @@ button{
 }
 
 #title{
+    margin-left:3em;
     margin-top:2em;
     justify-content: flex-start;
     align-items: center;
@@ -61,7 +105,7 @@ button{
 #chapters{
     scroll-snap-align: start;
     width:100vw;
-    height:100vh;
+    height:90vh;
     display:flex;
     align-items: center;
     justify-content: space-evenly;
@@ -117,4 +161,22 @@ button{
 #ch2{
     background-image: url("../images/backgrounds/CityCentre.jpg");
     background-position: 70%;
+}
+
+#ch3{
+    background-image: url("../images/backgrounds/question-marks.jpg");
+    opacity:0.5;
+}
+
+#more-chapters{
+    height:10vh;
+    width:100vw;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#more-chapters h3{
+    color:white;
+    -webkit-text-stroke:black 0.5px;
 }
