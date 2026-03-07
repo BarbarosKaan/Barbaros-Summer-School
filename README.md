@@ -14,18 +14,18 @@ Barbaros' Summer School is a web visual novel with implemented minigames on the 
 - To unlock a further chapter, you need to finish the chapter before it first.
 - You get 3 hearts at the start of every chapter. When you incorrectly answer a minigame, you lose a heart. When you lose all 3 hearts, you get 2 options to Retry the current chapter or Return to the menu
 
-### Minigames
+## Minigames
 - **Quiz**: There is a question and 4 answer choices. Only one answer is correct.
 - **Grammar**: There is a sentence with a missing word. Complete the sentence by typing the correct word.
 - **Listening**: There is a listening track, a question and 4 answer choices. Only one answer is correct.
 - **Form A Sentence**: There are enough words to form a grammatically correct sentence. Organize them to form the sentence.
 
-### Technical
+## Technical
 - This project uses classes and modular scripting simultaneously
 - On the main menu, there are rotating pictures of the characters and the bacgkrounds which can be found in the chapters
 - The unlocked chapters are saved through `localStorage`
 
 ### Notes
-This project was made for my Bilsem research project, to be used as an example
-I had so much fun working on this project even though its just 2 chapters
-Its also based on a dream of mine :>
+- This project was made for my Bilsem research project, to be used as an example
+- I had so much fun working on this project even though its just 2 chapters
+- Its also based on a dream of mine :>
