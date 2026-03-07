@@ -154,17 +154,17 @@ button{
 }
 
 #ch1{
-    background-image: url("../images/backgrounds/chapter1Cover.jpg");
+    background-image: url("images/backgrounds/chapter1Cover.jpg");
     background-position: 70%;
 }
 
 #ch2{
-    background-image: url("../images/backgrounds/CityCentre.jpg");
+    background-image: url("images/backgrounds/CityCentre.jpg");
     background-position: 70%;
 }
 
 #ch3{
-    background-image: url("../images/backgrounds/question-marks.jpg");
+    background-image: url("images/backgrounds/question-marks.jpg");
     opacity:0.5;
 }
 
