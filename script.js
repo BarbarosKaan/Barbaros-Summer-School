@@ -76,7 +76,7 @@ setInterval(() => {
 
 ch1Btn.onclick = () => {
     localStorage.setItem("currentChapter","1")
-    window.location.href = "game/game.html"
+    window.location.href = "./game/game.html"
 }
 
 if(localStorage.getItem("ch2Unlocked") === "true"){
@@ -84,7 +84,7 @@ if(localStorage.getItem("ch2Unlocked") === "true"){
     ch2Btn.classList.add("available")
     ch2Btn.onclick = () =>{
         localStorage.setItem("currentChapter","2")
-        window.location.href = "game/game.html"
+        window.location.href = "./game/game.html"
     }
 }
 
