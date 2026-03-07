@@ -130,7 +130,7 @@ export const Ch1Story = [
         type:"dialog",
         character:Characters["Anne"],
         background: Images["Bedroom"],
-        text:"İngilizcen gelişecek ve kendi başına ayakta durmayı öğreneceksin."
+        text:"Moralini bozma sakın. İngilizcen gelişecek ve kendi başına ayakta durmayı öğreneceksin."
     },
     {
         type:"dialog",
@@ -154,7 +154,7 @@ export const Ch1Story = [
         type:"dialog",
         character:Characters["Barbaros"],
         background: Images["Airport1"],
-        text:"İşte başlıyoruz... Annem de gittiğine göre artık ipler tamamen benim elimde. Biraz gerginim ama dürüst olmam gerekirse bu durum acayip heyecan verici."
+        text:"İşte başlıyoruz... Biraz gerginim ama dürüst olmam gerekirse bu durum acayip heyecan verici."
     },
     {
         type:"dialog",
@@ -250,19 +250,7 @@ export const Ch1Story = [
         type:"dialog",
         character:Characters["Barbaros"],
         background: Images["Airport2"],
-        text:"Şu an her yer çok kalabalık ve herkes İtalyanca konuşuyor gibi hissediyorum. Panik yok, sadece tabelaları takip etmeliyim."
-    },
-    {
-        type:"dialog",
-        character:Characters["Barbaros"],
-        background: Images["Airport2"],
-        text:"Annem haklıydı, bu büyük bir fırsat. Kendi başıma halletmem gereken ilk şey buradan sağ salim yurda ulaşmak."
-    },
-    {
-        type:"dialog",
-        character:Characters["Barbaros"],
-        background: Images["Airport2"],
-        text:"Tamam, şimdi dışarı çıkıp bir taksi bulma vakti. İngilizce konuşmaya hazırım. Let’s do this!"
+        text:"Tamam, şimdi dışarı çıkıp bir taksi bulma vakti. İngilizce konuşmaya hazırım."
     },
     {
         type:"transition",
