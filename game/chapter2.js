@@ -1,5 +1,6 @@
 import Character from "./character.js"
 import {Quiz, Listening, Grammar, Sentence} from "./minigames.js"
+const body = document.querySelector("body")
 
 const Characters = {
     "Barbaros": new Character("Barbaros",
@@ -28,7 +29,7 @@ const Images = {
     "CityCentre": "../images/backgrounds/CityCentre.jpg",
     "CityCentre-Blur": "../images/backgrounds/CityCentre-Blur.png",
     "Pizzeria": "../images/backgrounds/Pizzeria.png",
-    "Pizzeria-Blur": "../images/backgrounds/Pizzeria.png",
+    "Pizzeria-Blur": "../images/backgrounds/Pizzeria-Blur.png",
     "River": "../images/backgrounds/RiverNight.jpg",
     "DormNight": "../images/backgrounds/DormNight.png",
 }
@@ -45,22 +46,22 @@ const Minigames = {
         ["203", "320", "302", "312"],
         2,
         ()=>{
-            background.style.backgroundImage = `url("${Images["Reception"]}")`
+            body.style.backgroundImage = `url("${Images["Reception"]}")`
             Characters["Barbaros"].speak("Room 302, on the third floor. Got it! Thank you for your help.")
         },
         ()=>{
-            background.style.backgroundImage = `url("${Images["Reception"]}")`
+            body.style.backgroundImage = `url("${Images["Reception"]}")`
             Characters["Barbaros"].speak("Wait, what did you say? Oh, I see it on the key now, it's 302. Thank you!")
         }
     ),
     "Dorm": new Sentence(
         ["how", "far", "is", "the", "city", "centre"],
         ()=>{
-            background.style.backgroundImage = `url("${Images["Dorm"]}")`
+            body.style.backgroundImage = `url("${Images["Dorm"]}")`
             Characters["Luca"].speak("It’s only a ten-minute walk. Let's go!")
         },
         ()=>{
-            background.style.backgroundImage = `url("${Images["Dorm"]}")`
+            body.style.backgroundImage = `url("${Images["Dorm"]}")`
             Characters["Luca"].speak("You mean 'How far is the city center?' It's very close!")
         }
     ),
@@ -69,11 +70,11 @@ const Minigames = {
         ["Drawing Manga","Singing","Playing Volleyball","Watching Series"],
         0,
         ()=>{
-            background.style.backgroundImage = `url("${Images["CityCentre"]}")`
+            body.style.backgroundImage = `url("${Images["CityCentre"]}")`
             Characters["Barbaros"].speak("Did you say you draw manga? I love reading mangas!")
         },
         ()=>{
-            background.style.backgroundImage = `url("${Images["CityCentre"]}")`
+            body.style.backgroundImage = `url("${Images["CityCentre"]}")`
             Characters["Barbaros"].speak("I must pay more attention.")
         }
     ),
@@ -83,11 +84,11 @@ const Minigames = {
         ["A new T-shirt and a menu", "Napkins and a glass of water", "More pizza and a fork", "A bill and a dessert"],
         1,
         ()=>{
-            background.style.backgroundImage = `url("${Images["Pizzeria"]}")`
+            body.style.backgroundImage = `url("${Images["Pizzeria"]}")`
             Characters["Barbaros"].speak("Luca! lend me the napkins. Let me clean it up for you Yuki.")
         },
         ()=>{
-            background.style.backgroundImage = `url("${Images["Pizzeria"]}")`
+            body.style.backgroundImage = `url("${Images["Pizzeria"]}")`
             Characters["Luca"].speak("Yuki! I got the napkins, Let me clean it up for you.")
         }
     ),

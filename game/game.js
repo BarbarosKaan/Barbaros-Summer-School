@@ -2,6 +2,63 @@ import {Ch1Story, Ch1StartData} from "./chapter1.js"
 import {Ch2Story, Ch2StartData} from "./chapter2.js"
 import {typeWriter, speedTypeWriter, stopTypeWriter, restoreHearts, isTypeWriterRunning} from "./utils.js"
 
+async function preloadImages(imageUrls) {
+    return Promise.all(
+        imageUrls.map(url => {
+            return new Promise((resolve, reject) => {
+                const img = new Image()
+                img.onload = () => resolve(url)
+                img.onerror = () => reject(new Error(`Failed to load: ${url}`))
+                img.src = url
+            })
+        })
+    )
+}
+
+const imagesToPreload = [
+    // Chapter 1 backgrounds
+    "../images/backgrounds/airport1.jpg",
+    "../images/backgrounds/airport1-blur.jpg",
+    "../images/backgrounds/airport2.jpg",
+    "../images/backgrounds/bedroom.jpg",
+    "../images/backgrounds/cafe.jpg",
+    "../images/backgrounds/plane.jpg",
+    "../images/backgrounds/plane-blur.jpg",
+    "../images/backgrounds/taxi.jpg",
+    "../images/backgrounds/taxi-blur.jpg",
+    // Chapter 2 backgrounds
+    "../images/backgrounds/Reception.jpg",
+    "../images/backgrounds/Reception-Blur.png",
+    "../images/backgrounds/Dorm.jpg",
+    "../images/backgrounds/Dorm-Blur.png",
+    "../images/backgrounds/CityCentre.jpg",
+    "../images/backgrounds/CityCentre-Blur.png",
+    "../images/backgrounds/Pizzeria.png",
+    "../images/backgrounds/Pizzeria-Blur.png",
+    "../images/backgrounds/RiverNight.jpg",
+    "../images/backgrounds/DormNight.png",
+    // Character images
+    "../images/characters/barbaros-doodle.png",
+    "../images/characters/annem-doodle.png",
+    "../images/characters/taksici-doodle.png",
+    "../images/characters/asyalı-doodle.png",
+    "../images/characters/luca-doodle.png",
+    "../images/characters/yuki-doodle.png",
+    "../images/characters/reception-doodle.png",
+    // UI elements
+    "../images/elements/heart.png",
+    "../images/elements/skip.png",
+    "../images/elements/icon.png"
+]
+
+// Preload images when page loads
+preloadImages(imagesToPreload).then(() => {
+    console.log("All images preloaded!")
+}).catch(error => {
+    console.warn("Some images failed to load:", error)
+})
+
+const body = document.querySelector("body")
 const background = document.querySelector("#background")
 const startBtn = document.querySelector("#start-btn")
 const startTitle = document.querySelector("#start-title")
@@ -43,7 +100,7 @@ function onDeath(){
 
 function storyEnd(won){
     background.className = "end"
-    background.style.backgroundImage = `url(${StartData.Image})`
+    body.style.backgroundImage = `url(${StartData.Image})`
     startTitle.textContent = StartData.Title
     if (won) {
         endState.textContent = "Good Job!"
@@ -80,17 +137,17 @@ function continueStory(){
     }
     const pageData = Story[storyIndex]
     if (pageData.type === "dialog"){
-        background.style.backgroundImage = `url("${pageData.background}")`
+        body.style.backgroundImage = `url("${pageData.background}")`
         pageData.character.speak(pageData.text)
     } else if(pageData.type ==="minigame"){
-        background.style.backgroundImage = `url("${pageData.background}")`
+        body.style.backgroundImage = `url("${pageData.background}")`
         minigameHeader.textContent = pageData.header
         pageData.minigame.render()
     } else if(pageData.type ==="transition"){
         black.classList.add("active")
         blackText.textContent = ""
         setTimeout(()=>{
-            background.style.backgroundImage = `url("${pageData.newBackground}")`
+            body.style.backgroundImage = `url("${pageData.newBackground}")`
             typeWriter(blackText,pageData.text,"../audios/voices/voice_sans.wav",50)
             setTimeout(()=>{
                 black.classList.remove("active")
@@ -102,7 +159,7 @@ function continueStory(){
 
 function resetToStart(){
     storyIndex= -1
-    background.style.backgroundImage = `url(${StartData.Image})`
+    body.style.backgroundImage = `url(${StartData.Image})`
     startTitle.textContent = StartData.Title
     background.className = "start",
     restoreHearts()

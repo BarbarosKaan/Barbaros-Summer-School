@@ -1,5 +1,6 @@
 import Character from "./character.js"
 import {Quiz, Listening, Grammar, Sentence} from "./minigames.js"
+const body = document.querySelector("body")
 
 const Characters = {
     "Barbaros": new Character("Barbaros",
@@ -27,7 +28,7 @@ const Images = {
     "Bedroom": "../images/backgrounds/bedroom.jpg",
     "Cafe": "../images/backgrounds/cafe.jpg",
     "Plane": "../images/backgrounds/plane.jpg",
-    "Plane-Blur": "../images/backgrounds/plane.jpg",
+    "Plane-Blur": "../images/backgrounds/plane-blur.jpg",
     "Taxi": "../images/backgrounds/taxi.jpg",
     "Taxi-Blur": "../images/backgrounds/taxi-blur.jpg"
 }
@@ -43,11 +44,11 @@ const Minigames = {
         ["Gate 1", "Gate 3", "Gate 5", "Gate 7"],
         2,
         ()=>{
-            background.style.backgroundImage = `url("${Images["Airport1"]}")`
+            body.style.backgroundImage = `url("${Images["Airport1"]}")`
             Characters["Barbaros"].speak("Gate 5. Tamam, anladım. Sanırım sandığımdan daha hazırım.")
         },
         ()=>{
-            background.style.backgroundImage = `url("${Images["Airport1"]}")`
+            body.style.backgroundImage = `url("${Images["Airport1"]}")`
             Characters["Barbaros"].speak("Sanırım yakındaki birine sormam gerekecek...")
         }
     ),
@@ -56,33 +57,33 @@ const Minigames = {
         " help me become more independent.",
         "will",
         ()=>{
-            background.style.backgroundImage = `url("${Images["Plane"]}")`
+            body.style.backgroundImage = `url("${Images["Plane"]}")`
             Characters["AsyalıNpc"].speak("That’s a mature way to think.")
         },
         ()=>{
-            background.style.backgroundImage = `url("${Images["Plane"]}")`
+            body.style.backgroundImage = `url("${Images["Plane"]}")`
             Characters["AsyalıNpc"].speak("You should say ‘will help.’")
         },
     ),
     "Plane2": new Sentence(
         ["I", "will", "not", "waste", "this", "opportunity"],
         ()=>{
-            background.style.backgroundImage = `url("${Images["Plane"]}")`
+            body.style.backgroundImage = `url("${Images["Plane"]}")`
             Characters["AsyalıNpc"].speak("I believe you won’t.")
         },
         ()=>{
-            background.style.backgroundImage = `url("${Images["Plane"]}")`
+            body.style.backgroundImage = `url("${Images["Plane"]}")`
             Characters["AsyalıNpc"].speak("It should be ‘I will not waste this opportunity.’")
         }
     ),
     "Taxi1": new Sentence(
         ["I", "am", "going", "to", "the", "school", "dormitory"],
         ()=>{
-            background.style.backgroundImage = `url("${Images["Taxi"]}")`
+            body.style.backgroundImage = `url("${Images["Taxi"]}")`
             Characters["Taksici"].speak("Your English is very clear. Don’t worry, I know exactly where that is.")
         },
         ()=>{
-            background.style.backgroundImage = `url("${Images["Taxi"]}")`
+            body.style.backgroundImage = `url("${Images["Taxi"]}")`
             Characters["Taksici"].speak("Sorry? Oh, I understand now. You should say ‘I am going to the school dormitory.’ No problem, let’s go!")
         }
     ),
@@ -91,11 +92,11 @@ const Minigames = {
         ["Eiffel Tower","Colosseum","Statue Of Liberty","Big Ben"],
         1,
         ()=>{
-            background.style.backgroundImage = `url("${Images["Taxi"]}")`
+            body.style.backgroundImage = `url("${Images["Taxi"]}")`
             Characters["Taksici"].speak("Exactly! It’s very close to your dormitory. You should visit it tomorrow.")
         },
         ()=>{
-            background.style.backgroundImage = `url("${Images["Taxi"]}")`
+            body.style.backgroundImage = `url("${Images["Taxi"]}")`
             Characters["Taksici"].speak("Haha, no! That’s in another country. It’s the Colosseum! You will see it soon.")
         }
     )
