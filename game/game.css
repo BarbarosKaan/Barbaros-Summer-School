@@ -9,6 +9,7 @@ body{
 }
 
 button{
+    color:black;
     cursor:pointer;
     font-family:inherit;
 }
@@ -254,8 +255,8 @@ button{
     position:absolute;
     top:-10%;
     border-radius:1em;
-    width: max(5%,10%);
-    height: max(5%,15%);
+    width: max(5%,20%);
+    height: max(5%,20%);
     background: rgb(255, 255, 255);
     transition: background 0.3s ease;
 }

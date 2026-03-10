@@ -145,6 +145,7 @@ button{
 }
 
 .ch-btn{
+    color:black;
     background:grey;
     font-size:2vw;
     border-radius:1em;

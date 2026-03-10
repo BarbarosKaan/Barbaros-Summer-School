@@ -24,23 +24,25 @@ export function restoreHearts(){
     heart3.classList.remove("lost")
 }
 
-export function typeWriter(element, text, sound , speed) {
-        let i = 0
-        element.textContent = ""
-        lastText.element = element
-        lastText.text = text
-        currentInterval = setInterval(() => {
-            const textSound = new Audio(sound)
-            textSound.play()
-            element.textContent += text[i]
-            i++
-
-            if (i >= text.length) {
-                clearInterval(currentInterval)
-                currentInterval = null
-                lastText = {}
-            }
-        }, speed)
+export function typeWriter(element, text, sound, speed) {
+    let i = 0
+    element.textContent = ""
+    lastText.element = element
+    lastText.text = text
+    
+    const textSound = new Audio(sound)
+    
+    currentInterval = setInterval(() => {
+        textSound.currentTime = 0
+        textSound.play()
+        element.textContent = text.slice(0, ++i)
+        
+        if (i >= text.length) {
+            clearInterval(currentInterval)
+            currentInterval = null
+            lastText = {}
+        }
+    }, speed)
 }
 
 export function isTypeWriterRunning(){
