@@ -24,28 +24,52 @@ export function restoreHearts(){
     heart3.classList.remove("lost")
 }
 
+let audioContext = null
+let soundBuffer = null
+let loadedSound = null
+
+async function loadSound(sound) {
+    if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)()
+    }
+
+    if (loadedSound !== sound) {
+        const response = await fetch(sound)
+        const arrayBuffer = await response.arrayBuffer()
+        soundBuffer = await audioContext.decodeAudioData(arrayBuffer)
+        loadedSound = sound
+    }
+}
+
+function playSound() {
+    if (!soundBuffer) return
+    const source = audioContext.createBufferSource()
+    source.buffer = soundBuffer
+    source.connect(audioContext.destination)
+    source.start(0)
+}
+
 export function typeWriter(element, text, sound, speed) {
     let i = 0
     element.textContent = ""
     lastText.element = element
     lastText.text = text
-    
-    const textSound = new Audio(sound)
-    textSound.volume = 0.5
-    
-    currentInterval = setInterval(() => {
-        if (i%3 === 0){
-            textSound.currentTime = 0
-            textSound.play()
-        }
-        element.textContent = text.slice(0, ++i)
-        
-        if (i >= text.length) {
-            clearInterval(currentInterval)
-            currentInterval = null
-            lastText = {}
-        }
-    }, speed)
+
+    // Sesi yükle, bitince yazmaya başla
+    loadSound(sound).then(() => {
+        currentInterval = setInterval(() => {
+            if (i % 3 === 0) {
+                playSound()
+            }
+            element.textContent = text.slice(0, ++i)
+
+            if (i >= text.length) {
+                clearInterval(currentInterval)
+                currentInterval = null
+                lastText = {}
+            }
+        }, speed)
+    })
 }
 
 export function isTypeWriterRunning(){
