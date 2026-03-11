@@ -89,7 +89,7 @@ const StartData = StartDatas[currentCh-1]
 function onDeath(){
     setTimeout(()=>{
         black.classList.add("active")
-        typeWriter(blackText,"You Lost All Your Hearts.","../audios/voices/voice_sans.wav",50)
+        typeWriter(blackText,"You Lost All Your Hearts.","../audios/voices/sans_voice.m4a",50)
         setTimeout(()=>{
             stopTypeWriter()
             storyEnd(false)
@@ -127,7 +127,7 @@ function continueStory(){
     storyIndex++
     if (storyIndex >= Story.length){
         black.classList.add("active")
-        typeWriter(blackText,"To be continued...","../audios/voices/voice_sans.wav",50)
+        typeWriter(blackText,"To be continued...","../audios/voices/sans_voice.m4a",50)
         setTimeout(()=>{
             stopTypeWriter()
             storyEnd(true)
@@ -148,7 +148,7 @@ function continueStory(){
         blackText.textContent = ""
         setTimeout(()=>{
             body.style.backgroundImage = `url("${pageData.newBackground}")`
-            typeWriter(blackText,pageData.text,"../audios/voices/voice_sans.wav",50)
+            typeWriter(blackText,pageData.text,"../audios/voices/sans_voice.m4a",50)
             setTimeout(()=>{
                 black.classList.remove("active")
                 continueStory()

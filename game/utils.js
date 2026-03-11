@@ -31,10 +31,13 @@ export function typeWriter(element, text, sound, speed) {
     lastText.text = text
     
     const textSound = new Audio(sound)
+    textSound.volume = 0.5
     
     currentInterval = setInterval(() => {
-        textSound.currentTime = 0
-        textSound.play()
+        if (i%3 === 0){
+            textSound.currentTime = 0
+            textSound.play()
+        }
         element.textContent = text.slice(0, ++i)
         
         if (i >= text.length) {

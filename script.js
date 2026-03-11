@@ -28,6 +28,25 @@ const backgrounds = [
     "images/backgrounds/RiverNight.jpg",
 ]
 
+async function preloadImages(imageUrls) {
+    return Promise.all(
+        imageUrls.map(url => {
+            return new Promise((resolve, reject) => {
+                const img = new Image()
+                img.onload = () => resolve(url)
+                img.onerror = () => reject(new Error(`Failed to load: ${url}`))
+                img.src = url
+            })
+        })
+    )
+}
+
+preloadImages(backgrounds.concat(characters)).then(() => {
+    console.log("All images preloaded!")
+}).catch(error => {
+    console.warn("Some images failed to load:", error)
+})
+
 let chIndex = 0
 let bgIndex = 0
 
