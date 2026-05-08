@@ -99,19 +99,19 @@ ch1Btn.onclick = () => {
 }
 
 if(localStorage.getItem("ch2Unlocked") === "true"){
+}
     ch2Btn.disabled = false
     ch2Btn.classList.add("available")
     ch2Btn.onclick = () =>{
         localStorage.setItem("currentChapter","2")
         window.location.href = "./game/game.html"
     }
-}
 
 if(localStorage.getItem("ch3Unlocked") === "true"){
+}
     ch3Btn.disabled = false
     ch3Btn.classList.add("available")
     ch3Btn.onclick = () =>{
         localStorage.setItem("currentChapter","3")
         window.location.href = "game/game.html"
     }
-}
