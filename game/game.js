@@ -1,5 +1,6 @@
 import {Ch1Story, Ch1StartData} from "./chapter1.js"
 import {Ch2Story, Ch2StartData} from "./chapter2.js"
+import {Ch3Story, Ch3StartData} from "./chapter3.js"
 import {typeWriter, speedTypeWriter, stopTypeWriter, restoreHearts, isTypeWriterRunning} from "./utils.js"
 
 async function preloadImages(imageUrls) {
@@ -37,6 +38,16 @@ const imagesToPreload = [
     "../images/backgrounds/Pizzeria-Blur.png",
     "../images/backgrounds/RiverNight.jpg",
     "../images/backgrounds/DormNight.png",
+    // Chapter 3 backgrounds
+    "../images/backgrounds/SchoolEntrance.jpg",
+    "../images/backgrounds/SchoolEntrance-blur.png",
+    "../images/backgrounds/main-hall.jpg",
+    "../images/backgrounds/main-hall-blur.jpg",
+    "../images/backgrounds/classroom-a.jpg",
+    "../images/backgrounds/classroom-a-blur.jpg",
+    "../images/backgrounds/cafeteria-blur.jpg",
+    "../images/backgrounds/school-garden.jpg",
+    "../images/backgrounds/school-garden-blur.jpg",
     // Character images
     "../images/characters/barbaros-doodle.png",
     "../images/characters/annem-doodle.png",
@@ -45,6 +56,11 @@ const imagesToPreload = [
     "../images/characters/luca-doodle.png",
     "../images/characters/yuki-doodle.png",
     "../images/characters/reception-doodle.png",
+    "../images/characters/oskar-doodle.png",
+    "../images/characters/clara-doodle.png",
+    "../images/characters/mudur-doodle.png",
+    "../images/characters/bianchi-doodle.png",
+    "../images/characters/ogrenci-doodle.png",
     // UI elements
     "../images/elements/heart.png",
     "../images/elements/skip.png",
@@ -79,8 +95,8 @@ let stopAll = false
 let storyIndex = -1
 let inputLocked = false
 
-const StartDatas = [Ch1StartData,Ch2StartData]
-const Stories = [Ch1Story,Ch2Story]
+const StartDatas = [Ch1StartData,Ch2StartData,Ch3StartData]
+const Stories = [Ch1Story,Ch2Story,Ch3Story]
 const currentCh = Number(localStorage.getItem("currentChapter")) || 1
 
 const Story = Stories[currentCh-1]
@@ -127,7 +143,7 @@ function continueStory(){
     storyIndex++
     if (storyIndex >= Story.length){
         black.classList.add("active")
-        typeWriter(blackText,"To be continued...","../audios/voices/sans_voice.m4a",50)
+        typeWriter(blackText,"To be continued...","../audios/voices/barbaros_voice.m4a",50)
         setTimeout(()=>{
             stopTypeWriter()
             storyEnd(true)
@@ -148,7 +164,7 @@ function continueStory(){
         blackText.textContent = ""
         setTimeout(()=>{
             body.style.backgroundImage = `url("${pageData.newBackground}")`
-            typeWriter(blackText,pageData.text,"../audios/voices/sans_voice.m4a",50)
+            typeWriter(blackText,pageData.text,"../audios/voices/barbaros_voice.m4a",50)
             setTimeout(()=>{
                 black.classList.remove("active")
                 continueStory()

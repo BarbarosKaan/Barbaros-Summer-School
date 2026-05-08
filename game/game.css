@@ -94,7 +94,7 @@ button{
     grid-area: mg-heading;
     text-align:center;
     font-size:5vw;
-    -webkit-text-stroke: black 1px;
+    -webkit-text-stroke: black 2px;
     color:white;
 }
 

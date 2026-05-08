@@ -374,7 +374,7 @@ export const Ch2Story = [
 ]
 
 const startImg = "../images/backgrounds/CityCentre.jpg"
-const startTitle = "The First Day"
+const startTitle = "Welcome To Rome"
 
 export const Ch2StartData = {
     "Image": startImg,

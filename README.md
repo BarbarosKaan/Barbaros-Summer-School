@@ -29,6 +29,5 @@ For the best experience, hold your device **HORIZONTALLY**.
 
 ### Notes
 - This game was originally designed to be played in bigger screens such as PC and Tablet. Smaller screens may have some errors
-- This project was made for my Bilsem research project, to be used as an example
-- I had so much fun working on this project even though its just 2 chapters
+- This project was made for my Bilsem research project
 - Its also based on a dream of mine :>

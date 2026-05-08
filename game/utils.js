@@ -58,7 +58,7 @@ export function typeWriter(element, text, sound, speed) {
     // Sesi yükle, bitince yazmaya başla
     loadSound(sound).then(() => {
         currentInterval = setInterval(() => {
-            if (i % 3 === 0) {
+            if (i % 2 === 0) {
                 playSound()
             }
             element.textContent = text.slice(0, ++i)

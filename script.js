@@ -107,7 +107,6 @@ if(localStorage.getItem("ch2Unlocked") === "true"){
     }
 }
 
-/* CHAPTER 3 Temp
 if(localStorage.getItem("ch3Unlocked") === "true"){
     ch3Btn.disabled = false
     ch3Btn.classList.add("available")
@@ -116,4 +115,3 @@ if(localStorage.getItem("ch3Unlocked") === "true"){
         window.location.href = "game/game.html"
     }
 }
-*/
